@@ -1,0 +1,17 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}TechBoard{% endblock %}
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">Welcome to TechBoard</h1>
+    <p class="lead">Here you can find all of the current issues, workarounds, and fixes for tech related problems.</p>
+</div>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+{{ message }}
+{% endfor %}
+{% endif %}
+{% endwith %}
+{% endblock %}
+{% block footer %}
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}TechBoard{% endblock %}
+{{ wtf.quick_form(form) }}
+{% include 'site/header.html' %}
+{% block content %}
+<div class="container-fluid bg-secondary">
+    <div class="container p-3 bg-light mb-4 border-rounded">
+        <form class="m-3 mw-100" method="POST">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{form.title.label()}}{{form.title(class_="form-control")}}
+            </div>
+            <div class="form-group">
+                {{form.description.label()}}{{form.description(class_="form-control")}}
+            </div>
+            <div class="form-group">
+                {{form.status.label()}}{{form.status(class_="form-control")}}
+            </div>
+            <div class="form-group text-align-left">
+                {{form.instructionBox.label()}}{{form.instructionBox(class_="form-control")}}
+                {{form.instructions.label()}}{{form.instructions(class_="form-control")}}
+            </div>
+            <div class="form-group text-align-left">
+                {{form.active.label()}}{{form.active(class_="form-control")}}
+            </div>
+            <div class="form-group">
+                <button class="btn btn-lg btn-primary" type="submit">Submit</button>
+            </div>
+        </form>
+        {% for field, errors in form.errors.items() %}
+    <div class="alert alert-error text-danger">
+        {{ form[field].label }}: {{ ', '.join(errors) }}
+    </div>
+    {% endfor %}
+
+    </div>
+    <div class="container">&nbsp;</div>
+</div>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+{{ message }}
+{% endfor %}
+{% endif %}
+{% endwith %}
+{% endblock %}
+{% block footer %}
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}TechBoard{% endblock %}
+{% block content %}
+
+<body>
+    <div class="jumbotron">
+        <h1>Current Issues</h1>
+    </div>
+    <div class="container-fluid">
+
+        {% for row in issues %}
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">{{row["title"]}}</h3>
+                <p class="card-text">{{row["description"]}}</p>
+                {% if row["status"] == 'Still Effecting' %}
+                <h5>Status: <span class="text-danger">Still Effecting</h5>
+                {% elif row["status"] == 'Resolved' %}
+                <h5>Status: <span class="text-success">Resolved</h5>
+                {% elif row["status"] == 'Work Around' %}
+                <h5>Status: <span class="text-warning">Work Around</h5>
+                {% else %}
+                <h5>Status: <span class="text-danger">Unknown</h5>
+                {% endif %}
+                {% if row["instruction_box"] == 1 %}
+                <hr>
+                <h5 class="card-subtitle">Instructions:</h5>
+                <p class="card-text">{{row["instructions"]}}</p>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    {{ message }}
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    {% endblock %}
+    {% block footer %}
+    {% endblock %}
+</body>

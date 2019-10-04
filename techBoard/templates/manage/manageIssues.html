@@ -1,0 +1,51 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}TechBoard{% endblock %}
+{{ wtf.quick_form(form) }}
+{% include 'site/header.html' %}
+{% block content %}
+<div class="jumbotron">
+    <h1>Manage Issues</h1>
+</div>
+<div class="container-fluid d-lg-flex justify-content-between p-2">
+    <div class="table-responsive" style="max-height: 700px; overflow: auto;">
+        <table class="table table-hover table-striped table-bordered tableFixHead" id="listingsTable">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Status</th>
+                    <th scop="col">Active</th>
+                    <th scope="col">Created</th>
+                    <th scope="col">Updated</th>
+                </tr>
+            </thead>
+            {% for row in issues %}
+            <tr id="clickable" scope="row" data-url={{ url_for('manage.editIssue', issueID = row['issue_id']) }}>
+                <td>{{ row["title"] }}</td>
+                <td>{{ row["status"] }}</td>
+                <td>{{ row["active"] }}</td>
+                <td>{{ row["created_date"] }}</td>
+                <td>{{ row["modified_date"] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+<!-- Page specific script -->
+<script>
+    $(document).ready(function () {
+        $('tr#clickable').click(function () {
+            window.location = $(this).data('url');
+        });
+    });
+</script>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+{{ message }}
+{% endfor %}
+{% endif %}
+{% endwith %}
+{% endblock %}
+{% block footer %}
+{% endblock %}

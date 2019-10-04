@@ -1,0 +1,64 @@
+{% block head %}
+
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="{{ url_for('static',filename='custom.css') }}">
+  <!-- Menu Toggle Script -->
+  <script>
+    $(document).ready(function () {
+      $("#menu-toggle").click(function () {
+        //e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+      });
+    });
+  </script>
+</head>
+{% endblock %}
+{% block navbar %}
+<header>
+  <div class="navbar navbar-expand-md navbar-dark bg-dark justify-content-start d-flex m-0" id="headerNav">
+    <button class="navbar-toggler mr-auto" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+      aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <nav class="collapse navbar-collapse" id="navbarCollapse" role="navigation" aria-label="Main Menu">
+      <ul id="menu-menu-1" class="navbar-nav align-content-center">
+        <li class="nav-item m-2">
+          <a class="nav-link" href={{url_for("public.showIssues")}}>
+            <h3>Home</h3>
+          </a>
+        </li>
+        <li class="nav-item m-2">
+          <a class="nav-link" href="{{url_for("manage.manageIssues")}}">
+            <h3>Issues</h3>
+          </a>
+        </li>
+        <li class="nav-item m-2">
+          <a class="nav-link" href={{url_for("manage.createIssue")}}>
+            <h3>Create Issue</h3>
+          </a>
+        </li>
+        {% if session['user_id'] %}
+        <li class="nav-item dropdown m-2">
+          <a class="nav-link dropdown-toggle h3 p-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+            aria-expanded="false">Account</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">My Account</a>
+            <a class="dropdown-item" href={{ url_for("auth.logout") }}>Logout</a>
+          </div>
+        </li>
+        {% else %}
+        <li class="nav-item m-2">
+          <a class="nav-link" href={{url_for("auth.login")}}>
+            <h3>Login</h3>
+          </a>
+        </li>
+        {% endif %}
+      </ul>
+    </nav>
+  </div>
+</header>
+{% endblock %}
